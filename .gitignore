@@ -1,6 +1,5 @@
 # Ignore folder for sensitive information
 secrets
-cofrap
 
 
 # Ignore environment variable files

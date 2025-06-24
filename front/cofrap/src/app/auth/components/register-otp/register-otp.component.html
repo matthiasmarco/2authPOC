@@ -1,0 +1,27 @@
+<div class="flex flex-col items-center justify-center" style="width: 40vw;">
+    <div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)">
+        <div class="w-full bg-surface-0 dark:bg-surface-900 py-20 px-8 sm:px-20" style="border-radius: 53px">
+            <app-welcome-card title="Compte en cours de création" subtitle="Veuillez générer votre code MFA pour finaliser l'inscription."></app-welcome-card>
+
+            <!-- Message Error -->
+            @if (message) {
+                <p-message styleClass="mt-4 mb-6" [severity]="message.severity"> {{ message.text }} </p-message>
+            }
+
+            @if (!qrCode) {
+                <div class="text-center mb-4">
+                    <button pButton class="md:w-[30rem]" label="Générer le code MFA" (click)="generateOtp()" [disabled]="loading"></button>
+                </div>
+            } @else {
+                <div class="text-center">
+                    <img [src]="qrCode | appBase64ToImage" alt="QRCode MFA" class="w-60 h-60 mx-auto mt-4 mb-4" />
+
+                    <!-- Info Message -->
+                    <p-message styleClass="my-6 md:w-[30rem]" severity="info" icon="pi pi-send" text="Scannez ce QR Code avec votre application MFA, puis connectez-vous." />
+
+                    <button pButton label="Se connecter" routerLink="/auth/login"></button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

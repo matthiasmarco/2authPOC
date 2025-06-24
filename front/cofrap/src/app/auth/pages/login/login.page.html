@@ -1,0 +1,16 @@
+<div class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden">
+    <app-floating-configurator />
+
+    <!-- Étape 1 -->
+    @if (!showOtpVerifiedStep) {
+        <app-login-password
+            [username]="username"
+            (passwordVerified)="onPasswordVerified($event)"
+        ></app-login-password>
+    }@else {
+        <!-- Étape 2 -->
+        <app-login-otp [username]="username" (otpVerified)="onOtpVerified()"></app-login-otp>
+    }
+</div>
+
+<p-toast />

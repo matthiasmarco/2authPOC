@@ -1,0 +1,22 @@
+
+<div class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden">
+    <app-floating-configurator />
+
+    <!-- Étape 1 -->
+    @if (!showOtpStep) {
+        <app-register-password
+            [username]="username"
+            [qrCode]="passwordQRCode"
+            (passwordGenerated)="onPasswordGenerated($event)"
+            (mfaConfirmed)="onConfirmMfa()"
+        ></app-register-password>
+
+    }@else {
+        <!-- Étape 2 -->
+        <app-register-otp
+            [username]="username"
+            (otpGenerated)="onOtpGenerated($event)"
+        ></app-register-otp>
+    }
+
+</div>
