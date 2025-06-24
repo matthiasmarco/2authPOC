@@ -1,0 +1,36 @@
+adminUser: admin
+adminPassword: admin
+
+service:
+  type: LoadBalancer
+  port: 30080
+  targetPort: 3000
+  portName: http
+
+initChownData:
+  enabled: false
+
+securityContext:
+  runAsUser: 472
+  runAsGroup: 472
+  fsGroup: 472
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus.openfaas:9090
+        access: proxy
+        isDefault: true
+
+persistence:
+  enabled: true
+  size: 1Gi
+  accessModes:
+    - ReadWriteOnce
+
+
+env:
+  GF_SECURITY_ALLOW_EMBEDDING: "true"

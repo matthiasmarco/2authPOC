@@ -1,0 +1,71 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://127.0.0.1:8080
+functions:
+  generate-password:
+    lang: python3-http
+    handler: ./generate-password
+    image: 96941513/generate-password:latest
+    secrets:
+      - db-user
+      - db-password
+      - secret-key
+    environment:
+      DB_NAME: "cofrap"
+      DB_HOST: "postgres.default.svc.cluster.local"
+
+  generate-2fa:
+    lang: python3-http
+    handler: ./generate-2fa
+    image: 96941513/generate-2fa:latest
+    secrets:
+      - db-user
+      - db-password
+      - secret-key
+    environment:
+      DB_NAME: "cofrap"
+      DB_HOST: "postgres.default.svc.cluster.local"
+
+  authenticate-user:
+    lang: python3-http
+    handler: ./authenticate-user
+    image: 96941513/authenticate-user:latest
+    secrets:
+      - db-user
+      - db-password
+      - secret-key
+    environment:
+      DB_NAME: "cofrap"
+      DB_HOST: "postgres.default.svc.cluster.local"
+      EXPIRATION_DELAY: "180d"
+
+  authenticate-password:
+    lang: python3-http
+    handler: ./authenticate-password
+    image: 96941513/authenticate-password:latest
+    secrets:
+      - db-user
+      - db-password
+      - secret-key
+    environment:
+      DB_NAME: "cofrap"
+      DB_HOST: "postgres.default.svc.cluster.local"
+      EXPIRATION_DELAY: "180d"
+      MIN_DELAY_BETWEEN_STEPS: "5s"
+      MAX_DELAY_BETWEEN_STEPS: "5m"
+
+  authenticate-2fa:
+    lang: python3-http
+    handler: ./authenticate-2fa
+    image: 96941513/authenticate-2fa:latest
+    secrets:
+      - db-user
+      - db-password
+      - secret-key
+    environment:
+      DB_NAME: "cofrap"
+      DB_HOST: "postgres.default.svc.cluster.local"
+      EXPIRATION_DELAY: "180d"
+      MIN_DELAY_BETWEEN_STEPS: "5s"
+      MAX_DELAY_BETWEEN_STEPS: "5m"
